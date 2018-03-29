@@ -10,6 +10,7 @@ const buffer = require('vinyl-buffer');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const eslint = require("gulp-eslint");
+const rename = require('gulp-rename');
 const runSequence = require('run-sequence').use(gulp);
 const jsdoc2md = require("jsdoc-to-markdown");
 const toc = require('markdown-toc');
@@ -113,11 +114,20 @@ const runBrowserify = (ignores, bundle) => {
         .bundle()
         .pipe(source(bundle))
         .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(uglify())
-        .pipe(sourcemaps.write(PATHS.browserify.sourceMap))
+//        .pipe(sourcemaps.init({ loadMaps: true }))
+//        .pipe(uglify())
+//        .pipe(sourcemaps.write(PATHS.browserify.sourceMap))
         .pipe(gulp.dest(PATHS.browserify.base));
 };
+
+gulp.task('uglify', function () {
+	return gulp.src(PATHS.browserify.base + '/' + PATHS.browserify.bundle)
+		.pipe(sourcemaps.init({ loadMaps: true }))
+		.pipe(uglify())
+		.pipe(rename({extname: '.min.js'}))
+		.pipe(sourcemaps.write(PATHS.browserify.base))
+		.pipe(gulp.dest(PATHS.browserify.base));
+});
 
 gulp.task('browser', ['browser-full', 'browser-no-encryption']);
 

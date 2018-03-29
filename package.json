@@ -50,6 +50,7 @@
     "gulp-eslint": "^4.0.1",
     "gulp-sourcemaps": "^2.6.3",
     "gulp-uglify": "^3.0.0",
+    "gulp-rename": "^1.2.2",
     "jasmine": "^2.9.0",
     "jsdoc-to-markdown": "^4.0.1",
     "jsondiffpatch": "^0.2.5",
